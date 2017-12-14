@@ -4,12 +4,12 @@
   "description": "A barebones Python app, which can easily be deployed to Heroku.",
   "main": "app.js",
   "dependencies": {
+    "brfs": "^1.4.3",
     "browserify": "^14.5.0",
-    "history": "^4.7.2",
+    "css-modulesify": "^0.28.0",
     "react-bootstrap": "^0.31.5",
     "react-dropzone": "^4.2.3",
-    "react-html-parser": "^2.0.2",
-    "react-router": "^4.2.0"
+    "react-html-parser": "^2.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -19,11 +19,11 @@
     "babelify": "^8.0.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
-    "serve": "^6.4.1",
     "watchify": "^3.9.0"
   },
   "scripts": {
-    "start": "watchify static/js/app.js -o static/dist/main.bundle.js -dv & python main.py",
+    "start": "watchify src/react/app.js -p [css-modulesify --autoprefixer.browsers \"> 5%\" -o static/dist/main.css] -o static/dist/main.bundle.js -dv & python main.py",
+    "browserify": "browserify -t [babelify --presets es2015 --presets react] -p [css-modulesify --autoprefixer.browsers \"> 5%\" -o dist/main.css --json dist/css-modules.json] -o static/dist/main.bundle.js src/react/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "browserify": {
@@ -35,6 +35,10 @@
             "es2015",
             "react"
           ]
+        },
+        "brfs",
+        {
+          "ignore": "\\.(json|css)$"
         }
       ]
     ]

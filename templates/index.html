@@ -2,100 +2,48 @@
 <html>
 <head>
   {% include 'hheader.html' %}
-  <title>{{ s.gettext('site_title') }}</title>
+  <title>{{ s.gettext('sh_diff') }}</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="HTTP header, Base64, URL encode/decode, Unicode escape/unescape, ID generator">
-  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
-  <link href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}" rel="stylesheet" media="screen">
-  <link rel="manifest" href="static/manifest.json">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+  <link href="static/dist/main.css" rel="stylesheet" type="text/css" />
+<style>
+
+em.str-diff {
+  font-weight: normal;
+  font-style: normal;
+  background-color:#E99;
+}
+
+span.line-num {
+  display: block;
+  line-height: 1.5rem;
+}
+
+span.line-num:before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  border-right: 1px solid #ddd;
+  padding: 0 .5em;
+  margin-right: .5em;
+  color: #888
+}
+
+.diff-block {
+  display: block;
+  background-color:#FCC;
+}
+
+</style>
 </head>
 
 <body>
 
-<!-- Facebook -->
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=287278864750021";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+<div id="root" class="container"></div>
 
-<ol class="breadcrumb">
-  <li class="active">{{ s.gettext('nav_top') }}</li>
-</ol>
-
-<div class="container">
-  <h1>{{ s.gettext('site_title') }}</h1>
-  <script src="http://code.jquery.com/jquery.js"></script>
-  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-
-  <div class="panel panel-default">
-    <div class="panel-heading">{{ s.gettext('dh_intro') }}</div>
-    <div class="panel-body">
-      {{ s.gettext('dd_intro') }}
-    </div>
-  </div>
-
-  <div id="root"></div>
-
-  <div class="row">
-    <div class="col-md-4">
-      <h3>{{ s.gettext('sh_hhdr') }}</h3>
-      <p>{{ s.gettext('sd_hhdr') }}</p>
-      <p><a class="btn btn-primary" href="{{ url_for('top.hhdr_index') }}" role="button">Go</a></p>
-    </div>
-    <div class="col-md-4">
-      <h3>{{ s.gettext('sh_urle') }}</h3>
-      <p>{{ s.gettext('sd_urle') }}</p>
-      <p><a class="btn btn-primary" href="{{ url_for('top.urle_index') }}" role="button">Go</a></p>
-    </div>
-    <div class="col-md-4">
-      <h3>{{ s.gettext('sh_unie') }}</h3>
-      <p>{{ s.gettext('sd_unie') }}</p>
-      <p><a class="btn btn-primary" href="{{ url_for('top.unie_index') }}" role="button">Go</a></p>
-    </div>
-    <div class="col-md-4">
-      <h3>{{ s.gettext('sh_base') }}</h3>
-      <p>{{ s.gettext('sd_base') }}</p>
-      <p><a class="btn btn-primary" href="{{ url_for('top.base_index') }}" role="button">Go</a></p>
-    </div>
-    <div class="col-md-4">
-      <h3>{{ s.gettext('sh_xmlbt') }}</h3>
-      <p>{{ s.gettext('sd_xmlbt') }}</p>
-      <p><a class="btn btn-primary" href="{{ url_for('top.xmlbt_index') }}" role="button">Go</a></p>
-    </div>
-    <div class="col-md-4">
-      <h3>{{ s.gettext('sh_ids') }}</h3>
-      <p>{{ s.gettext('sd_ids') }}</p>
-      <p><a class="btn btn-primary" href="{{ url_for('top.ids_index') }}" role="button">Go</a></p>
-    </div>
-    <div class="col-md-4">
-      <h3>{{ s.gettext('sh_pdfconv') }}</h3>
-      <p>{{ s.gettext('sd_pdfconv') }}</p>
-      <p><a class="btn btn-primary" href="{{ url_for('top.pdfconv_index') }}" role="button">Go</a></p>
-    </div>
-    <div class="col-md-4">
-      <h3>{{ s.gettext('sh_ocr') }}</h3>
-      <p>{{ s.gettext('sd_ocr') }}</p>
-      <p><a class="btn btn-primary" href="{{ url_for('top.ocr_index') }}" role="button">Go</a></p>
-    </div>
-    <div class="col-md-4">
-      <h3>{{ s.gettext('sh_diff') }}</h3>
-      <p>{{ s.gettext('sd_diff') }}</p>
-      <p><a class="btn btn-primary" href="{{ url_for('top.diff_index') }}" role="button">Go</a></p>
-    </div>
-  </div>
-
-  <hr/>
-
-  <script src="{{ url_for('static', filename='dist/main.bundle.js') }}"></script>
-  <div class="fb-like" data-href="http://webtoys.herokuapp.com" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-
-</div>
+<script src="{{ url_for('static', filename='dist/main.bundle.js') }}"></script>
 
 </body>
 </html>
