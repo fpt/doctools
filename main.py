@@ -3,7 +3,7 @@
 
 import sys,os
 import socket
-from flask import Flask, Blueprint, g,render_template, make_response, jsonify, send_file
+from flask import Flask, g,render_template, make_response, jsonify, send_file
 from flask import request, redirect
 from flask import Response
 from io import BytesIO
@@ -20,33 +20,11 @@ app = Flask(__name__)
 app.debug = True
 app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024
 
-# http://flask.pocoo.org/docs/0.12/patterns/urlprocessors/
-# https://stackoverflow.com/questions/25961711/flask-how-can-i-always-include-language-code-in-url
-#bp = Blueprint('frontend', __name__, url_prefix='/<lang>')
-bp = Blueprint('top', __name__)
-
-
-# automatically inject values into a call for url_for()
-@bp.url_defaults
-def add_language_code(endpoint, values):
-    if 'lang_code' in values or 'lang_code' not in g or not g.lang_code:
-        return
-    values['lang'] = g.lang_code
-
-
-# executed right after the request was matched and can execute code based on the URL values.
-@bp.url_value_preprocessor
-def pull_lang_code(endpoint, values):
-    if 'lang' in values:
-        g.lang_code = values.pop('lang')
-    else:
-        g.lang_code = Strings.get_lang(request.headers.get('Accept-Language'))
-
 
 # index
-@bp.route('/', methods=["GET"])
+@app.route('/', methods=["GET"])
 def index():
-    return render_template('index.html', s = Strings(g.lang_code) )
+    return render_template('index.html')
 
 
 def diff_compare(fn1, body1, fn2, body2):
@@ -113,11 +91,6 @@ def diff_compare_files():
             flash('unsupported.')
 
         return diff_compare(files[0].filename, body1, files[1].filename, body2)
-
-
-app.register_blueprint(bp, url_defaults={})
-app.register_blueprint(bp, url_prefix='/ja', url_defaults={'lang': 'ja'})
-#print(app.url_map)
 
 
 if __name__ == '__main__':

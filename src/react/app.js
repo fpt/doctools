@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM, { render } from 'react-dom';
-import { PageHeader, Panel, Button, Col, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+import { PageHeader, Panel, Button, Col, Clearfix, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import Dropzone from 'react-dropzone'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
@@ -216,6 +216,7 @@ class Diff extends Component {
         <Panel header="このツールについて">左右にファイルを一つずつドロップして、「比較する」ボタンを押すとファイルの内容の差分が赤く表示されます。
         行が横に長過ぎる場合は「行を折り返す」をオンにすることで見やすくなります。</Panel>
         <Col sm={12} md={12}>
+          <div class="row">&nbsp;</div>
           <Button bsSize="large" bsStyle={btn_style} onClick={this.doCompare.bind(this)}>
             比較する
           </Button>
@@ -243,6 +244,7 @@ class Diff extends Component {
             content={this.state.right_content}
             multiline={this.state.multiline} />
         </Col>
+        <Clearfix/>
       </div>
     );
   }
